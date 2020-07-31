@@ -36,9 +36,17 @@ class AlExtension{
 	
 
 	public writeDescriptionFile():void{
+		var comp = function compareObjectTypeAndId(o1:AlObject,o2:AlObject){
+			if (o1.type > o2.type){ return 1;}
+			if (o1.type < o2.type){ return -1;}
+			if(o1.id > o2.id){return 1;}
+			if(o1.id < o2.id){return -1;}
+			return 0;
+		};
 		var tab = '|Type|ID|Name|\n|-|-|-|\n';
 		this._objectList.then((list:AlObject[])=>{
-			list.forEach((o:AlObject)=>{
+			var sortedObjectList = list.sort(comp);
+			sortedObjectList.forEach((o:AlObject)=>{
 				tab += o.getMdDescriptionTab();
 			});
 			fs.writeFileSync(this.basePath+'/description.md',tab);

@@ -1,9 +1,18 @@
 import * as fs from 'fs';
 
 class AlObject {
-	private id: string;
-    private type: string;
-	private name: string;
+	private _id: string;
+	public get id(): string {
+		return this._id;
+	}
+    private _type: string;
+	public get type(): string {
+		return this._type;
+	}
+	private _name: string;
+	public get name(): string {
+		return this._name;
+	}
 	private dependencyType:string;
 	private dependencyFrom: string;
 	private line: string;
@@ -15,11 +24,11 @@ class AlObject {
 		this.line = this.getFirstLine();
 		this.remainingLine = this.line;
 		//get type 
-	 	this.type = this.getNextTag();
+	 	this._type = this.getNextTag();
 	 	//get id
-		this.id = this.getNextTag();
+		this._id = this.getNextTag();
 		//get name
-		this.name = this.getNextTag();
+		this._name = this.getNextTag();
 		//check for dependency
 		this.dependencyType = this.getNextTag();
 		this.dependencyFrom = this.getNextTag();
