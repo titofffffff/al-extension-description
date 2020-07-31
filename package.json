@@ -1,8 +1,10 @@
 {
-	"name": "al-object-range",
-	"displayName": "Al Object Range",
-	"description": "generate object range report from Al project",
+	"name": "al-extension-description",
+	"displayName": "Al Extension Description",
+	"description": "generate a markdown documentation from Al Extension",
 	"version": "0.0.1",
+	"publisher": "christophecourvoisier",
+	"repository": {"url" : "https://github.com/titofffffff/al-extension-description"},
 	"engines": {
 		"vscode": "^1.47.0"
 	},
@@ -10,14 +12,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:al-object-range.generate-object-range-report"
+		"onCommand:al-extension-description.generate-extension-report"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "al-object-range.generate-object-range-report",
-				"title": "Generate object range report"
+				"command": "al-extension-description.generate-extension-report",
+				"title": "Generate extension report"
 			}
 		]
 	},
