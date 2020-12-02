@@ -3,7 +3,7 @@ import AlObject = require("./AlObject");
 import * as fs from 'fs';
 class AlExtension{
 	private jsonFilePath:vscode.Uri;
-	private description:JSON;
+	//private description:JSON;
 	private basePath:string;
 	private _objectList: Promise<AlObject[]>;
 	public get objectList(): Promise<AlObject[]> {
@@ -14,9 +14,9 @@ class AlExtension{
 	}
 	constructor(uri:vscode.Uri){
 		this.jsonFilePath = uri;
-		let fileContent = fs.readFileSync(uri.path,'utf8');
-		this.description = JSON.parse(fileContent);
-		this.basePath = uri.path.substr(0,uri.path.length-'/app.json'.length);
+		let fileContent = fs.readFileSync(uri.fsPath,'utf8');
+		//this.description = JSON.parse(fileContent);
+		this.basePath = uri.path.substr(0,uri.fsPath.length-'app.json'.length);
 		
 		let searchPattern = '**/*.al';
 		this._objectList= this.createObjectList(searchPattern,this.basePath);
@@ -27,7 +27,7 @@ class AlExtension{
 		var uris = await vscode.workspace.findFiles(searchPattern);
 			uris.forEach((uri: vscode.Uri) => {
 				if (uri.path.startsWith(searchPath,0)) {
-				list.push(new AlObject(uri.path));
+				list.push(new AlObject(uri.fsPath));
 				}
 			});
 		Promise.all;
@@ -49,7 +49,13 @@ class AlExtension{
 			sortedObjectList.forEach((o:AlObject)=>{
 				tab += o.getMdDescriptionTab();
 			});
-			fs.writeFileSync(this.basePath+'/description.md',tab);
+			var fs = require('fs');
+			//fs.writeFile(this.basePath+'/description.md',tab);
+			fs.writeFile(this.basePath.substr(3)+'/description.md', tab, function (err: any) {
+				if (err) {
+				  return console.log(err);
+				}
+			  });
 		});
 		
 	}

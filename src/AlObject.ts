@@ -46,7 +46,7 @@ class AlObject {
 			offset = 1;
 		} 
 		if (null === tag){
-			throw Error( 'tag is null');
+			return '';
 		}
 		if (this.remainingLine.length > tag.length+offset){
 		this.remainingLine = this.remainingLine.substr(tag[0].toString().length+offset);
